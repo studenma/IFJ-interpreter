@@ -1,0 +1,66 @@
+PROGRAM     -> FUNCTIONS SCOPE eof
+FUNCTIONS   -> FUNCTION FUNCTIONS
+FUNCTIONS   -> epsilon
+FUNCTION    -> Declare Function id lb PARAMS rb As TYPE eol
+FUNCTION    -> Function id lb PARAMS rb As TYPE eol FCOMMANDS End Function
+PARAMS      ->  PARAM NPARAM
+PARAMS      ->  epsilon 
+NPARAM      -> comma PARAM NPARAM
+NPARAM      -> epsilon
+PARAM       -> id As TYPE
+SCOPE       -> Scope eol SCOMMANDS End Scope
+FCOMMANDS   -> FCOMMAND FCOMMANDS
+FCOMMANDS   -> COMMAND FCOMMANDS
+FCOMMANDS   -> SCOMMAND FCOMMANDS
+FCOMMANDS   -> epsilon
+FCOMMAND    -> Return EXPR eol
+SCOMMANDS   -> SCOMMAND SCOMMANDS
+SCOMMANDS   -> COMMAND SCOMMANDS
+SCOMMANDS   -> epsilon
+SCOMMAND    -> VARDEF eol
+COMMANDS    -> COMMAND COMMANDS
+COMMANDS    -> epsilon
+COMMAND     -> id equals INIT eol
+COMMAND     -> INPUT eol
+COMMAND     -> PRINT eol
+COMMAND     -> BRANCH eol
+COMMAND     -> LOOP eol
+VARDEF      -> Dim id As TYPE DEFINIT
+DEFINIT     -> equals INIT
+DEFINIT     ->  epsilon
+INIT        -> EXPR
+INIT        -> FCALL
+FCALL       -> id lb CPARAMS rb
+CPARAMS     -> CPARAM NCPARAM
+CPARAMS     -> epsilon
+NCPARAM     -> comma CPARAM NCPARAM
+NCPARAM     -> epsilon 
+CPARAM      -> TERM
+INPUT       -> Input id
+PRINT       -> print EXPR semicolon NEXPR
+NEXPR       -> EXPR semicolon NEXPR
+NEXPR       -> epsilon
+BRANCH      -> If EXPR Then eol COMMANDS Else eol COMMANDS End If
+LOOP        -> Do While EXPR eol COMMANDS Loop
+TYPE        -> Integer
+TYPE        -> Double
+TYPE        -> String
+TERM        -> literal
+TERM        -> id
+
+
+
+EXPR        -> id
+EXPR        -> literal
+EXPR        -> EXPR + EXPR
+EXPR        -> EXPR * EXPR
+EXPR        -> EXPR - EXPR
+EXPR        -> EXPR / EXPR
+EXPR        -> EXPR \ EXPR
+EXPR        -> EXPR > EXPR
+EXPR        -> EXPR < EXPR
+EXPR        -> EXPR <= EXPR
+EXPR        -> EXPR >= EXPR
+EXPR        -> EXPR equals EXPR
+EXPR        -> EXPR <> EXPR
+EXPR        -> lb EXPR rb
